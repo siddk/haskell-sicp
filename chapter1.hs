@@ -10,3 +10,15 @@
 -- Exercise 1.3.
 -- Define a procedure that takes three numbers as arguments and returns the sum
 -- of the squares of the two larger numbers.
+sumBig2 :: (Ord a, Num a) => a -> a -> a -> a
+sumBig2 x y z
+    | x == (larger x y) = sumSquares x (larger y z)
+    | otherwise = sumSquares y (larger x z)
+
+larger :: (Ord a, Num a) => a -> a -> a
+larger x y
+    | x > y = x
+    | otherwise = y
+
+sumSquares :: (Ord a, Num a) => a -> a -> a
+sumSquares x y = (x^2) + (y^2)
