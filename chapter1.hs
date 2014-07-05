@@ -7,3 +7,6 @@
 --
 -- To do this, run [:l filename.hs] in the ghci shell in the directory housing your code.
 
+-- Exercise 1.3.
+-- Define a procedure that takes three numbers as arguments and returns the sum
+-- of the squares of the two larger numbers.
