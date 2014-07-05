@@ -60,6 +60,7 @@ sumSquares x y = (x^2) + (y^2)
 -- (SCHEME) new-if is a function (not a special form), and as Scheme uses applicative order evaluation, the arguments of the function are always evaluated first, so the second clause will continue to be evaluated, resulting in a loop.
 -- (HASKELL) Haskell uses lazy evaluation, and as such, the function arguments will not be evaluated unless needed, so the program will run successfully.
 
+
 -- Exercise 1.8
 -- Newton's method for cube roots is based on the fact that if y is an approximation to the cube root of x, then a better approximation is given by the value
 -- ((x/y^2)+2y) / 3
