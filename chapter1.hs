@@ -22,3 +22,45 @@ larger x y
 
 sumSquares :: (Ord a, Num a) => a -> a -> a
 sumSquares x y = (x^2) + (y^2)
+
+
+-- Exercise 1.5 (normal vs. applicative order)
+-- Ben Bitdiddle has invented a test to determine whether the interpreter he is faced with is using applicative-order evaluation or normal-order evaluation. He defines the following two procedures:
+-- (define (p) (p))
+-- (define (test x y)
+--  (if (= x 0)
+--      0
+--      y))
+-- Then he evaluates the expression
+--(test 0 (p))
+-- What behavior will Ben observe with an interpreter that uses applicative-order evaluation? What behavior will he observe with an interpreter that uses normal-order evaluation? Explain your answer. (Assume that the evaluation rule for the special form if is the same whether the interpreter is using normal or applicative order: The predicate expression is evaluated first, and the result determines whether to evaluate the consequent or the alternative expression.)
+--------------------------------------------------------------------------------
+-- With applicative order evaluation, all the conditionals are evaluated first, which means the (p) is evaluated unto itself, forcing an infinite loop.
+-- With normal order evaluation, the (p) term never gets evaluated, and the program runs.
+
+
+-- Exercise 1.6
+-- Alyssa P. Hacker doesn't see why if needs to be provided as a special form. ``Why can't I just define it as an ordinary procedure in terms of cond?'' she asks. Alyssa's friend Eva Lu Ator claims this can indeed be done, and she defines a new version of if:
+-- (define (new-if predicate then-clause else-clause)
+--  (cond (predicate then-clause)
+--        (else else-clause)))
+-- Eva demonstrates the program for Alyssa:
+-- (new-if (= 2 3) 0 5)
+-- 5
+-- (new-if (= 1 1) 0 5)
+-- 0
+-- Delighted, Alyssa uses new-if to rewrite the square-root program:
+-- (define (sqrt-iter guess x)
+--   (new-if (good-enough? guess x)
+--           guess
+--           (sqrt-iter (improve guess x)
+--                      x)))
+-- What happens when Alyssa attempts to use this to compute square roots? Explain.
+---------------------------------------------------------------------------------
+-- (SCHEME) new-if is a function (not a special form), and as Scheme uses applicative order evaluation, the arguments of the function are always evaluated first, so the second clause will continue to be evaluated, resulting in a loop.
+-- (HASKELL) Haskell uses lazy evaluation, and as such, the function arguments will not be evaluated unless needed, so the program will run successfully.
+
+-- Exercise 1.8
+-- Newton's method for cube roots is based on the fact that if y is an approximation to the cube root of x, then a better approximation is given by the value
+-- ((x/y^2)+2y) / 3
+-- Use this formula to implement a cube-root procedure analogous to the square-root procedure. (In section 1.3.4 we will see how to implement Newton's method in general as an abstraction of these square-root and cube-root procedures.)
