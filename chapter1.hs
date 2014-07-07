@@ -147,3 +147,4 @@ filteredAccumulate predicate combiner null_val term x next n = iter x null_val
 
 sumOddSquares :: (Integral a) => a -> a -> a
 sumOddSquares a b = filteredAccumulate odd (+) 0 (\x -> x * x) a (\x -> x + 1) b
+
