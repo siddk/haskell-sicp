@@ -180,3 +180,10 @@ double procedure = procedure . procedure
 -- (NOTE) This is a trivial problem with the . operator
 compose :: (b -> c) -> (a -> b) -> (a -> c) -- Note transitivity of type signature
 compose f g = f . g
+
+
+-- Exercise 1.43
+-- If f is a numerical function and n is a positive integer, then we can form the nth repeated application of f, which is defined to be the function whose value at x is f(f(...(f(x))...)). For example, if f is the function x   x + 1, then the nth repeated application of f is the function x   x + n. If f is the operation of squaring a number, then the nth repeated application of f is the function that raises its argument to the 2nth power. Write a procedure that takes as inputs a procedure that computes f and a positive integer n and returns the procedure that computes the nth repeated application of f.
+repeatedProc :: (Eq a, Num a) => (b -> b) -> a -> (b -> b)
+repeatedProc f 1 = f
+repeatedProc f n = f . repeatedProc f (n - 1)
