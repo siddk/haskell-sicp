@@ -174,3 +174,9 @@ sumOddSquares a b = filteredAccumulate odd (+) 0 (\x -> x * x) a (\x -> x + 1) b
 double :: (a -> a) -> (a -> a)
 double procedure = procedure . procedure
 
+
+-- Exercise 1.42
+-- Let f and g be two one-argument functions. The composition f after g is defined to be the function x -> f(g(x)). Define a procedure compose that implements composition.
+-- (NOTE) This is a trivial problem with the . operator
+compose :: (b -> c) -> (a -> b) -> (a -> c) -- Note transitivity of type signature
+compose f g = f . g
