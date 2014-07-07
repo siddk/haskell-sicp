@@ -102,3 +102,12 @@ iterSum term a next b = iter a 0
     where iter a result = if a > b
                           then result
                           else iter (next a) (result + (term a))
+
+
+-- Exercise 1.31
+-- a.  The sum procedure is only the simplest of a vast number of similar abstractions that can be captured as higher-order procedures. Write an analogous procedure called product that returns the product of the values of a function at points over a given range. Show how to define factorial in terms of product.
+iterProduct :: (Num a, Ord a) => (a -> a) -> a -> (a -> a) -> a -> a
+iterProduct term a next b = iter a 1
+    where iter a result = if a > b
+                          then result
+                          else iter (next a) (result * (term a))
