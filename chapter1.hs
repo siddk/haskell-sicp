@@ -128,7 +128,7 @@ recursiveProduct term a next b = if a > b
 -- Accumulate takes as arguments the same term and range specifications as sum and product, together with a combiner procedure (of two arguments) that specifies how the current term is to be combined with the accumulation of the preceding terms and a null-value that specifies what base value to use when the terms run out. Write accumulate and show how sum and product can both be defined as simple calls to accumulate.
 
 -- (HASKELL) It's is important to note at this time that haskell has two functions foldr and foldl that will essentially apply accumulate over a LIST, not a range of two values. As such, we will define accumulate as it appears here in haskell as follows:
-accumulate :: (a -> a) -> a -> (a -> a) -> a -> (a -> a) -> a
+accumulate :: (Ord a) => (a -> a -> a) -> a -> (a -> a) -> a -> (a -> a) -> a -> a
 accumulate combiner null_value term x next n = iter x null_value
     where iter x result = if x > n
                             then result
