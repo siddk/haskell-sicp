@@ -119,4 +119,4 @@ factorialProduct n = iterProduct (\x -> x * 1) 1 (\x -> x + 1) n
 recursiveProduct :: (Num a, Ord a) => (a -> a) -> a -> (a -> a) -> a -> a
 recursiveProduct term a next b = if a > b
                                  then 1
-                                 else a * (recursiveProduct term (term a) next (next b))
+                                 else (term a) * (recursiveProduct term (next a) next b
