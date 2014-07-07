@@ -111,3 +111,6 @@ iterProduct term a next b = iter a 1
     where iter a result = if a > b
                           then result
                           else iter (next a) (result * (term a))
+
+factorialProduct :: (Num a, Ord a) => a -> a
+factorial x = iterProduct (\x -> x * 1) 1 (\x -> x + 1) n
