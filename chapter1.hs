@@ -113,4 +113,4 @@ iterProduct term a next b = iter a 1
                           else iter (next a) (result * (term a))
 
 factorialProduct :: (Num a, Ord a) => a -> a
-factorial x = iterProduct (\x -> x * 1) 1 (\x -> x + 1) n
+factorialProduct n = iterProduct (\x -> x * 1) 1 (\x -> x + 1) n
