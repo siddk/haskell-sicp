@@ -148,3 +148,21 @@ filteredAccumulate predicate combiner null_val term x next n = iter x null_val
 sumOddSquares :: (Integral a) => a -> a -> a
 sumOddSquares a b = filteredAccumulate odd (+) 0 (\x -> x * x) a (\x -> x + 1) b
 
+
+-- Exercise 1.34
+-- Suppose we define the procedure
+-- (define (f g)
+--   (g 2))
+-- Then we have
+-- (f square)
+-- 4
+-- (f (lambda (z) (* z (+ z 1))))
+-- 6
+-- What happens if we (perversely) ask the interpreter to evaluate the combination (f f)? Explain.
+-----------------------------------------------------------------------------------
+-- (SCHEME + HASKELL) With applicative order evaluation and lazy evaluation, the order of function calls looks like this:
+-- (f f) --> (f 2) --> (2 2)
+-- This results in an error calling the number 2 as a function
+
+
+-- Exercise 1.41
