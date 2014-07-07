@@ -114,3 +114,9 @@ iterProduct term a next b = iter a 1
 
 factorialProduct :: (Num a, Ord a) => a -> a
 factorialProduct n = iterProduct (\x -> x * 1) 1 (\x -> x + 1) n
+
+-- b.  If your product procedure generates a recursive process, write one that generates an iterative process. If it generates an iterative process, write one that generates a recursive process.
+recursiveProduct :: (Num a, Ord a) => (a -> a) -> a -> (a -> a) -> a -> a
+recursiveProduct term a next b = if a > b
+                                 then 1
+                                 else a * (recursiveProduct term (term a) next (next b))
