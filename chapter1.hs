@@ -131,5 +131,19 @@ recursiveProduct term a next b = if a > b
 accumulate :: (Ord a) => (a -> a -> a) -> a -> (a -> a) -> a -> (a -> a) -> a -> a
 accumulate combiner null_value term x next n = iter x null_value
     where iter x result = if x > n
-                            then result
-                            else iter (next x) (combiner (term x) result)
+                          then result
+                          else iter (next x) (combiner (term x) result)
+
+
+-- Exercise 1.33
+-- You can obtain an even more general version of accumulate (exercise 1.32) by introducing the notion of a filter on the terms to be combined. That is, combine only those terms derived from values in the range that satisfy a specified condition. The resulting filtered-accumulate abstraction takes the same arguments as accumulate, together with an additional predicate of one argument that specifies the filter. Write filtered-accumulate as a procedure. Show how to express the following using filtered-accumulate:
+-- a. the sum of the squares of the odd numbers in the interval a to b
+filteredAccumulate :: Ord a => (a -> Bool) -> (a -> a -> a) -> a -> (a -> a) -> a -> (a -> a) -> a -> a
+filteredAccumulate predicate combiner null_val term x next n = iter x null_val
+    where iter x result
+            | x > n = result
+            | predicate x = iter (next x) (combiner (term x) result)
+            | otherwise = iter (next x) result
+
+sumOddSquares :: (Integral a) => a -> a -> a
+sumOddSquares a b = filteredAccumulate odd (+) 0 (\x -> x * x) a (\x -> x + 1) b
