@@ -54,8 +54,8 @@ subInterval x y = addInterval x (makeInterval (-1 * (upperBound y)) (-1 * (lower
 -- Write a program that fills in the following table where TFTN# represents the index of the "Three Factors of Triangular Numbers." Your function should return a list containing six lists of three elements. It should be of the form: ((3 1 6) ... (22736 636 258474216)) where the first number in each triplet is the n in 1+2+...+n, the second number is the FIRST number in x(x+1)(x+2), and the last number is the triangular number.
 triNum = triIter [] 1 3
     where triIter list x n
-            | n > 22736 = list
+            | x > 636 = list
             | sum [1..n] == product [x, x+1, x+2] = triIter (list ++ [(n, x, sum [1..n])]) x (n + 1)
-            | otherwise = if (x^3) > n
+            | otherwise = if x > n
                           then triIter list x (n + 1)
                           else triIter list (x + 1) n
