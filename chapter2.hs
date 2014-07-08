@@ -56,6 +56,6 @@ triNum = triIter [] 1 3
     where triIter list x n
             | n > 22736 = list
             | sum [1..n] == product [x, x+1, x+2] = triIter (list ++ [(n, x, sum [1..n])]) x (n + 1)
-            | otherwise = if x > n
-                          then triIter list 1 (n + 1)
+            | otherwise = if (x^3) > n
+                          then triIter list x (n + 1)
                           else triIter list (x + 1) n
