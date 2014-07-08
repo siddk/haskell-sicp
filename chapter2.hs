@@ -22,3 +22,17 @@ makeRat num den
 
 negative :: (Integral a) => a -> Bool
 negative x = x < 0
+
+
+-- Exercise 2.7
+-- Alyssa's program is incomplete because she has not specified the implementation of the interval abstraction. Here is a definition of the interval constructor:
+-- (define (make-interval a b) (cons a b))
+-- Define selectors upper-bound and lower-bound to complete the implementation.
+makeInterval :: (Integral a) => a -> a -> (a, a)
+makeInterval lower upper = (lower, upper)
+
+lowerBound :: (Integral a) -> (a, a) -> a
+lowerBound interval = fst interval
+
+upperBound :: (Integral a) -> (a, a) -> a
+upperBound interval = snd interval
