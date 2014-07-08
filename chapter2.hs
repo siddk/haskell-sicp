@@ -40,3 +40,8 @@ upperBound interval = snd interval
 
 -- Exercise 2.8
 -- Using reasoning analogous to Alyssa's, describe how the difference of two intervals may be computed. Define a corresponding subtraction procedure, called sub-interval.
+addInterval :: (Integral a) => (a, a) -> (a, a) -> (a, a)
+addInterval x y = makeInterval ((lowerBound x) + (lowerBound y)) ((upperBound x) + (upperBound y))
+
+subInterval :: (Integral a) => (a, a) -> (a, a) -> (a, a)
+subInterval x y = addInterval x (makeInterval (-1 * (upperBound y)) (-1 * (lowerBound y)))
