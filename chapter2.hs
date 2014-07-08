@@ -36,3 +36,6 @@ lowerBound interval = fst interval
 
 upperBound :: (Integral a) => (a, a) -> a
 upperBound interval = snd interval
+
+
+-- Exercise 2.8
