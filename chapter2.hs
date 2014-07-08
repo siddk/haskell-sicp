@@ -31,8 +31,8 @@ negative x = x < 0
 makeInterval :: (Integral a) => a -> a -> (a, a)
 makeInterval lower upper = (lower, upper)
 
-lowerBound :: (Integral a) -> (a, a) -> a
+lowerBound :: (Integral a) => (a, a) -> a
 lowerBound interval = fst interval
 
-upperBound :: (Integral a) -> (a, a) -> a
+upperBound :: (Integral a) => (a, a) -> a
 upperBound interval = snd interval
