@@ -58,6 +58,7 @@ lastPair (x:xs) = lastPair(xs)
 
 -- Exercise 2.18
 -- Define a procedure reverse that takes a list as argument and returns a list of the same elements in reverse order
-reverse :: [a] -> [a]
-reverse [] = []
-reverse (x:xs) = xs ++ [x]
+-- NOTE: Reverse is predefined in the Standard Haskell Prelude, so I use the standard ' notation to denote a function variation.
+reverse' :: [a] -> [a]
+reverse' [] = []
+reverse' (x:xs) = reverse xs $ ++ [x]
