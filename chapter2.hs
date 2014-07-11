@@ -61,4 +61,4 @@ lastPair (x:xs) = lastPair(xs)
 -- NOTE: Reverse is predefined in the Standard Haskell Prelude, so I use the standard ' notation to denote a function variation.
 reverse' :: [a] -> [a]
 reverse' [] = []
-reverse' (x:xs) = reverse xs $ ++ [x]
+reverse' (x:xs) = (reverse xs) ++ [x]
