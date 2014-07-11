@@ -50,6 +50,7 @@ subInterval x y = addInterval x (makeInterval (-1 * (upperBound y)) (-1 * (lower
 -- Exercise 2.17
 -- Define a procedure last-pair that returns the list that contains only the last element of a given (nonempty) list:
 -- (last-pair (list 23 72 149 34)) --> (34)
+-- NOTE: Syntactic sugar in Haskell allows for multiple ways to address basic list functions. Whereas in Scheme, car and cdr and really the only list selectors, Haskell allows for functions head, tail, init, last, and variations thereof. For the continuity between SICP and Haskell, I will be sticking to the selectors head and tail, and their syntactic variants (x:xs) (head:tail).
 lastPair :: [a] -> [a]
 lastPair (x:[]) = [x]
 lastPair (x:xs) = lastPair(xs)
@@ -58,3 +59,5 @@ lastPair (x:xs) = lastPair(xs)
 -- Exercise 2.18
 -- Define a procedure reverse that takes a list as argument and returns a list of the same elements in reverse order
 reverse :: [a] -> [a]
+reverse [] = []
+reverse (x:xs) = xs ++ [x]
