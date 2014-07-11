@@ -46,16 +46,3 @@ addInterval x y = makeInterval ((lowerBound x) + (lowerBound y)) ((upperBound x)
 subInterval :: (Integral a) => (a, a) -> (a, a) -> (a, a)
 subInterval x y = addInterval x (makeInterval (-1 * (upperBound y)) (-1 * (lowerBound y)))
 
-
--- Neato Problem
--- This problem was given out at the 2008 Santa Clara Valley Mathematics Field Day competition.
--- A triangular number, Tn = 1+2+3+ ... + n. There are some triangular numbers which are the products of three consecutive positive integers. For example, T3 = 1+2+3 = 1*2*3. Also, T22736 = 1+2+3+...+22736 = 636*637*638 = 258474216. NOTE: 258474216 is the largest of these numbers.
--- It turns out that there are exactly six triangular numbers which are the products of three integers.
--- Write a program that fills in the following table where TFTN# represents the index of the "Three Factors of Triangular Numbers." Your function should return a list containing six lists of three elements. It should be of the form: ((3 1 6) ... (22736 636 258474216)) where the first number in each triplet is the n in 1+2+...+n, the second number is the FIRST number in x(x+1)(x+2), and the last number is the triangular number.
-triNum = triIter [] 1 3
-    where triIter list x n
-            | x > 636 = list
-            | sum [1..n] == product [x, x+1, x+2] = triIter (list ++ [(n, x, sum [1..n])]) x (n + 1)
-            | otherwise = if x > n
-                          then triIter list x (n + 1)
-                          else triIter list (x + 1) n
