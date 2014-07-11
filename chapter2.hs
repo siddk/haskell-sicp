@@ -54,3 +54,5 @@ lastPair :: [a] -> [a]
 lastPair (x:[]) = [x]
 lastPair (x:xs) = lastPair(xs)
 
+
+
