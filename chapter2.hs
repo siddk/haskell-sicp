@@ -46,3 +46,11 @@ addInterval x y = makeInterval ((lowerBound x) + (lowerBound y)) ((upperBound x)
 subInterval :: (Integral a) => (a, a) -> (a, a) -> (a, a)
 subInterval x y = addInterval x (makeInterval (-1 * (upperBound y)) (-1 * (lowerBound y)))
 
+
+-- Exercise 2.17
+-- Define a procedure last-pair that returns the list that contains only the last element of a given (nonempty) list:
+-- (last-pair (list 23 72 149 34)) --> (34)
+lastPair :: [a] -> [a]
+lastPair (x:[]) = [x]
+lastPair (x:xs) = lastPair(xs)
+
