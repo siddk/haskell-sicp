@@ -62,3 +62,6 @@ lastPair (x:xs) = lastPair(xs)
 reverse' :: [a] -> [a]
 reverse' [] = []
 reverse' (x:xs) = (reverse xs) ++ [x]
+
+
+-- Exercise 2.20
