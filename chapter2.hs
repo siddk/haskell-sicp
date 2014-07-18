@@ -79,3 +79,6 @@ filter' [] predicate = []
 filter' (x:xs) predicate = if predicate x
                            then x : (filter' xs predicate)
                            else filter' xs predicate
+
+
+-- Exercise 2.21
