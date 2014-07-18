@@ -86,3 +86,7 @@ filter' (x:xs) predicate = if predicate x
 -- (for-each (lambda (x) (newline) (display x))
 --           (list 57 321 88))
 -- The value returned by the call to for-each (not illustrated above) can be something arbitrary, such as true. Give an implementation of for-each.
+forEach :: Monad m => [t] -> (t -> m a) -> m ()
+forEach [] proc = return ()
+forEach (x:xs) proc = do proc x
+                         forEach xs proc
