@@ -90,3 +90,7 @@ forEach :: Monad m => [t] -> (t -> m a) -> m ()
 forEach [] proc = return ()
 forEach (x:xs) proc = do proc x
                          forEach xs proc
+
+
+-- Exercise 2.27
+--
