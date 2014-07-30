@@ -94,7 +94,15 @@ forEach (x:xs) proc = do proc x
 
 -- Exercise 2.27
 -- Modify your reverse procedure of exercise 2.18 to produce a deep-reverse procedure that takes a list as argument and returns as its value the list with its elements reversed and with all sublists deep-reversed as well.
--- Note: Haskell lists must be pure (homogenous), so we assume all elements are lists (defeats the purpose of the problem, but some logic overlaps)
-deepReverse :: [[a]] -> [[a]]
-deepReverse [] = []
-deepReverse (x:xs) = (deepReverse xs) ++ (deepReverse x)
+-- Note: Haskell lists must be pure (homogenous), so I will create a tree data structure, to represent list depth.
+data NestedList a = Leaf a
+                  | Node [NestedList a]
+     deriving (Eq, Show)
+
+deepReverse :: NestedList a -> NestedList a
+deepReverse (Leaf x)  = Leaf x
+deepReverse (Node xs) = Node (reverse (map' deepReverse xs))
+
+map' :: (t -> a) -> [t] -> [a]
+map' proc [] = [];
+map' proc (x:xs) = (proc x) : (map' proc xs)
