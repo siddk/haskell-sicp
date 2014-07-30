@@ -106,3 +106,6 @@ deepReverse (Node xs) = Node (reverse (map' deepReverse xs))
 map' :: (t -> a) -> [t] -> [a]
 map' proc [] = [];
 map' proc (x:xs) = (proc x) : (map' proc xs)
+
+-- Sample Nested List for 2.27
+x = Node [Node [Leaf 1, Leaf 2], Node [Leaf 3, Leaf 4]]
