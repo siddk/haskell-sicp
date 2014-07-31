@@ -168,3 +168,6 @@ m1 :: Mobile Int
 m1 = makeMobile (makeBranch 10 (makeWeight 100))
                       (makeBranch 10 (makeMobile (makeBranch 40 (makeWeight 20))
                                                  (makeBranch 10 (makeWeight 80))))
+
+
+-- Exercise 2.30
