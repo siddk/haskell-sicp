@@ -235,6 +235,9 @@ treeMap proc (Node xs) = Node (map (treeMap proc) xs)
 -- Exercise 2.32
 -- Subsets Problem (a favorite of mine). Given a list x, return a list of lists of all
 -- subsets of x.
+-- This is a recurrence. Start with the base case (first subset): a null set. Then find all
+-- subsets with one element (last element of the list). Then add the second element to every
+-- existing subset. And so on, until the first element. Recursively, the solution is easy:
 subsets :: [a] -> [[a]]
 subsets [] = [[]]
 subsets (x:xs) = subsets xs ++ map (\sub -> x:sub) (subsets xs)
