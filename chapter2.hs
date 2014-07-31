@@ -119,9 +119,9 @@ x = Node [Node [Leaf 1, Leaf 2], Node [Leaf 3, Leaf 4]]
 -----------------------------------------------------------------------------------
 -- NOTE: This next part is very cool (at least to me). I am going to use the data keyword here, to create a sort of "abstraction" for a Mobile. I say "abstraction" because the data constructor never creates objects, but instead, it creates a series of functions binding a preset type to another type that we define. Feel free to check (:t constructor).
 
-data Mobile a = Mobile {mleft::Mobile a, mright::Mobile a}
-              | Branch {mlen::Int, mstruct::Mobile a}
-              | Weight {mweight::a}
+data Mobile a = Mobile {mleft   :: Mobile a, mright  :: Mobile a}
+              | Branch {mlen    :: Int,      mstruct :: Mobile a}
+              | Weight {mweight :: a}
      deriving (Eq, Show)
 
 -- a.
@@ -136,12 +136,24 @@ makeWeight weight = Weight {mweight=weight}
 
 leftBranch :: Mobile t -> Mobile t
 leftBranch (Mobile {mleft=left, mright=right}) = left
-rightBranch (Mobile {mleft=left, mright=right}) = right
-branchLength (Branch {mlen=len, mstruct=struct}) = len
-brancStruct (Branch {mlen=len, mstruct=struct}) = struct
 
+rightBranch :: Mobile t -> Mobile t
+rightBranch (Mobile {mleft=left, mright=right}) = right
+
+branchLength :: Mobile t -> Int
+branchLength (Branch {mlen=len, mstruct=struct}) = len
+
+branchStruct :: Mobile t -> Mobile t
+branchStruct (Branch {mlen=len, mstruct=struct}) = struct
+
+-- b.
+totalWeight :: Num a => Mobile a -> a
+totalWeight (Mobile {mleft = left, mright = right}) = (totalWeight left) + (totalWeight right)
+totalWeight (Branch {mlen = _, mstruct = struct}) = totalWeight struct
+totalWeight (Weight {mweight = weight}) = weight
 
 -- Mobile example for testing:
+m1 :: Mobile Integer
 m1 = makeMobile (makeBranch 10 (makeWeight 100))
                       (makeBranch 10 (makeMobile (makeBranch 40 (makeWeight 20))
                                                  (makeBranch 10 (makeWeight 80))))
