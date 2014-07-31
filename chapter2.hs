@@ -152,8 +152,19 @@ totalWeight (Mobile {mleft = left, mright = right}) = (totalWeight left) + (tota
 totalWeight (Branch {mlen = _, mstruct = struct}) = totalWeight struct
 totalWeight (Weight {mweight = weight}) = weight
 
+-- c.
+isBalanced :: Mobile Int -> Bool
+isBalanced (Mobile {mleft = left, mright = right}) =
+    let
+        leftTorque = branchLength left * totalWeight left
+        rightTorque = branchLength right * totalWeight right
+    in
+        leftTorque == rightTorque && isBalanced left && isBalanced right
+isBalanced (Branch {mlen = _, mstruct = struct}) = isBalanced struct
+isBalanced _ = True -- Anything that isn't a mobile is balanced.
+
 -- Mobile example for testing:
-m1 :: Mobile Integer
+m1 :: Mobile Int
 m1 = makeMobile (makeBranch 10 (makeWeight 100))
                       (makeBranch 10 (makeMobile (makeBranch 40 (makeWeight 20))
                                                  (makeBranch 10 (makeWeight 80))))
