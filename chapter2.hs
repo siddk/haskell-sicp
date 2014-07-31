@@ -10,7 +10,7 @@
 -- Discontinuities between Haskell and Scheme at this point of SICP:
 -- Scheme has a special pair type, which is defined by the cons operator. Haskell, on the
 -- other hand, has no specific dotted pair type, but rather has two compatible data types
---> the tuple, and the list.
+-- the tuple, and the list.
 -- In the following series of problems, I will do the best I can to use the corresponding
 -- data type. Note that the Tuple type can often be replaced by the List type, while the
 -- opposite may not necessarily be true.
@@ -158,10 +158,10 @@ x = Node [Node [Leaf 1, Leaf 2], Node [Leaf 3, Leaf 4]]
 -- the right side) and if each of the submobiles hanging off its branches is balanced.
 -- Design a predicate that tests whether a binary mobile is balanced.
 -----------------------------------------------------------------------------------
--- NOTE: This next part is very cool (at least to me). I am going to use the data
--- keyword here, to create a sort of "abstraction" for a Mobile. I say "abstraction"
+-- NOTE: This next part is very cool. I am going to use the data keyword here, to create a
+-- sort of "abstraction" for a Mobile. I say "abstraction"
 -- because the data constructor never creates objects, but instead, it creates a series of
--- functions binding a preset type to another type that we define. Feel free to check
+-- functions binding a preset type to a type that we define. Feel free to check
 -- (:t constructor).
 
 data Mobile a = Mobile {mleft   :: Mobile a, mright  :: Mobile a}
@@ -216,3 +216,17 @@ m1 = makeMobile (makeBranch 10 (makeWeight 100))
 
 
 -- Exercise 2.30
+-- Define a procedure square-tree analogous to the square-list procedure of exercise 2.21.
+-- NOTE: We will be using our NestedList for this (2.27)
+squareTree :: (Num a) => NestedList a -> NestedList a
+squareTree (Leaf x) = Leaf (x * x)
+squareTree (Node xs) = Node (map squareTree xs)
+
+
+-- Exercise 2.31
+-- Abstract your answer to exercise 2.30 to produce a procedure tree-map with the property
+-- that square-tree could be defined as
+-- (define (square-tree tree) (tree-map square tree))
+treeMap :: (a -> a) -> NestedList a -> NestedList a
+treeMap proc (Leaf x) = Leaf (proc x)
+treeMap proc (Node xs) = Node (map (treeMap proc) xs)
