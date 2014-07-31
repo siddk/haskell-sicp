@@ -8,11 +8,19 @@
 -- To do this, run [:l filename.hs] in the ghci shell in the directory housing your code.
 
 -- Discontinuities between Haskell and Scheme at this point of SICP:
--- Scheme has a special pair type, which is defined by the cons operator. Haskell, on the other hand, has no specific dotted pair type, but rather has two compatible data types --> the tuple, and the list.
--- In the following series of problems, I will do the best I can to use the corresponding data type. Note that the Tuple type can often be replaced by the List type, while the opposite may not necessarily be true.
+-- Scheme has a special pair type, which is defined by the cons operator. Haskell, on the
+-- other hand, has no specific dotted pair type, but rather has two compatible data types
+--> the tuple, and the list.
+-- In the following series of problems, I will do the best I can to use the corresponding
+-- data type. Note that the Tuple type can often be replaced by the List type, while the
+-- opposite may not necessarily be true.
+-- Other discontinuities will be addressed as they come up.
 
 -- Exercise 2.1
--- Define a better version of make-rat that handles both positive and negative arguments. Make-rat should normalize the sign so that if the rational number is positive, both the numerator and denominator are positive, and if the rational number is negative, only the numerator is negative.
+-- Define a better version of make-rat that handles both positive and negative arguments.
+-- Make-rat should normalize the sign so that if the rational number is positive, both the
+-- numerator and denominator are positive, and if the rational number is negative, only the
+-- numerator is negative.
 makeRat :: (Integral a) => a -> a -> (a, a)
 makeRat num den
     | negative num && negative den = ((-1) * num, (-1) * den)
@@ -25,7 +33,8 @@ negative x = x < 0
 
 
 -- Exercise 2.7
--- Alyssa's program is incomplete because she has not specified the implementation of the interval abstraction. Here is a definition of the interval constructor:
+-- Alyssa's program is incomplete because she has not specified the implementation of the
+-- interval abstraction. Here is a definition of the interval constructor:
 -- (define (make-interval a b) (cons a b))
 -- Define selectors upper-bound and lower-bound to complete the implementation.
 makeInterval :: (Integral a) => a -> a -> (a, a)
@@ -39,7 +48,8 @@ upperBound interval = snd interval
 
 
 -- Exercise 2.8
--- Using reasoning analogous to Alyssa's, describe how the difference of two intervals may be computed. Define a corresponding subtraction procedure, called sub-interval.
+-- Using reasoning analogous to Alyssa's, describe how the difference of two intervals may
+-- be computed. Define a corresponding subtraction procedure, called sub-interval.
 addInterval :: (Integral a) => (a, a) -> (a, a) -> (a, a)
 addInterval x y = makeInterval ((lowerBound x) + (lowerBound y)) ((upperBound x) + (upperBound y))
 
@@ -48,26 +58,41 @@ subInterval x y = addInterval x (makeInterval (-1 * (upperBound y)) (-1 * (lower
 
 
 -- Exercise 2.17
--- Define a procedure last-pair that returns the list that contains only the last element of a given (nonempty) list:
+-- Define a procedure last-pair that returns the list that contains only the last element of
+-- a given (nonempty) list:
 -- (last-pair (list 23 72 149 34)) --> (34)
--- NOTE: Syntactic sugar in Haskell allows for multiple ways to address basic list functions. Whereas in Scheme, car and cdr and really the only list selectors, Haskell allows for functions head, tail, init, last, and variations thereof. For the continuity between SICP and Haskell, I will be sticking to the selectors head and tail, and their syntactic variants (x:xs) (head:tail).
+-- NOTE: Syntactic sugar in Haskell allows for multiple ways to address basic list
+-- functions. Whereas in Scheme, car and cdr and really the only list selectors, Haskell
+-- allows for functions head, tail, init, last, and variations thereof. For the continuity
+-- between SICP and Haskell, I will be sticking to the selectors head and tail, and their
+-- syntactic variants (x:xs) (head:tail).
 lastPair :: [a] -> [a]
 lastPair (x:[]) = [x]
 lastPair (x:xs) = lastPair(xs)
 
 
 -- Exercise 2.18
--- Define a procedure reverse that takes a list as argument and returns a list of the same elements in reverse order
--- NOTE: Reverse is predefined in the Standard Haskell Prelude, so I use the standard ' notation to denote a function variation.
+-- Define a procedure reverse that takes a list as argument and returns a list of the same
+-- elements in reverse order
+-- NOTE: Reverse is predefined in the Standard Haskell Prelude, so I use the standard
+-- ' notation to denote a function variation.
 reverse' :: [a] -> [a]
 reverse' [] = []
 reverse' (x:xs) = (reverse xs) ++ [x]
 
 
 -- Exercise 2.20
--- The procedures +, *, and list take arbitrary numbers of arguments. One way to define such procedures is to use define with dotted-tail notation. In a procedure definition, a parameter list that has a dot before the last parameter name indicates that, when the procedure is called, the initial parameters (if any) will have as values the initial arguments, as usual, but the final parameter's value will be a list of any remaining arguments.
--- Use this notation to write a procedure same-parity that takes one or more integers and returns a list of all the arguments that have the same even-odd parity as the first argument.
--- NOTE: Haskell does not support dotted tail notation, so this example will serve as an implementation of filter.
+-- The procedures +, *, and list take arbitrary numbers of arguments. One way to define such
+-- procedures is to use define with dotted-tail notation. In a procedure definition, a
+-- parameter list that has a dot before the last parameter name indicates that, when the
+-- procedure is called, the initial parameters (if any) will have as values the initial
+-- arguments, as usual, but the final parameter's value will be a list of any remaining
+-- arguments.
+-- Use this notation to write a procedure same-parity that takes one or more integers and
+-- returns a list of all the arguments that have the same even-odd parity as the first
+-- argument.
+-- NOTE: Haskell does not support dotted tail notation, so this example will serve as an
+-- implementation of filter.
 sameParity :: (Integral a) => [a] -> [a]
 sameParity [] = []
 sameParity (x:xs) = if even x
@@ -82,10 +107,15 @@ filter' (x:xs) predicate = if predicate x
 
 
 -- Exercise 2.23
--- The procedure for-each is similar to map. It takes as arguments a procedure and a list of elements. However, rather than forming a list of the results, for-each just applies the procedure to each of the elements in turn, from left to right. The values returned by applying the procedure to the elements are not used at all -- for-each is used with procedures that perform an action, such as printing. For example,
+-- The procedure for-each is similar to map. It takes as arguments a procedure and a list of
+-- elements. However, rather than forming a list of the results, for-each just applies the
+-- procedure to each of the elements in turn, from left to right. The values returned by
+-- applying the procedure to the elements are not used at all -- for-each is used with
+-- procedures that perform an action, such as printing. For example,
 -- (for-each (lambda (x) (newline) (display x))
 --           (list 57 321 88))
--- The value returned by the call to for-each (not illustrated above) can be something arbitrary, such as true. Give an implementation of for-each.
+-- The value returned by the call to for-each (not illustrated above) can be something
+-- arbitrary, such as true. Give an implementation of for-each.
 forEach :: Monad m => [t] -> (t -> m a) -> m ()
 forEach [] proc = return ()
 forEach (x:xs) proc = do proc x
@@ -93,8 +123,11 @@ forEach (x:xs) proc = do proc x
 
 
 -- Exercise 2.27
--- Modify your reverse procedure of exercise 2.18 to produce a deep-reverse procedure that takes a list as argument and returns as its value the list with its elements reversed and with all sublists deep-reversed as well.
--- Note: Haskell lists must be pure (homogenous), so I will create a tree data structure, to represent list depth.
+-- Modify your reverse procedure of exercise 2.18 to produce a deep-reverse procedure that
+-- takes a list as argument and returns as its value the list with its elements reversed and
+-- with all sublists deep-reversed as well.
+-- Note: Haskell lists must be pure (homogenous), so I will create a tree data structure, to
+-- represent list depth.
 data NestedList a = Leaf a
                   | Node [NestedList a]
      deriving (Eq, Show)
