@@ -109,3 +109,39 @@ map' proc (x:xs) = (proc x) : (map' proc xs)
 
 -- Sample Nested List for 2.27
 x = Node [Node [Leaf 1, Leaf 2], Node [Leaf 3, Leaf 4]]
+
+
+-- Exercise 2.29
+-- A binary mobile consists of two branches, a left branch and a right branch. Each branch is a rod of a certain length, from which hangs either a weight or another binary mobile.
+-- a. Write the corresponding selectors left-branch and right-branch, which return the branches of a mobile, and branch-length and branch-structure, which return the components of a branch.
+-- b. Using your selectors, define a procedure total-weight that returns the total weight of a mobile.
+-- c. A mobile is said to be balanced if the torque applied by its top-left branch is equal to that applied by its top-right branch (that is, if the length of the left rod multiplied by the weight hanging from that rod is equal to the corresponding product for the right side) and if each of the submobiles hanging off its branches is balanced. Design a predicate that tests whether a binary mobile is balanced.
+-----------------------------------------------------------------------------------
+-- NOTE: This next part is very cool (at least to me). I am going to use the data keyword here, to create a sort of "abstraction" for a Mobile. I say "abstraction" because the data constructor never creates objects, but instead, it creates a series of functions binding a preset type to another type that we define. Feel free to check (:t constructor).
+
+data Mobile a = Mobile {mleft::Mobile a, mright::Mobile a}
+              | Branch {mlen::Int, mstruct::Mobile a}
+              | Weight {mweight::a}
+     deriving (Eq, Show)
+
+-- a.
+makeMobile :: Mobile a -> Mobile a -> Mobile a
+makeMobile left right = Mobile {mleft=left, mright=right}
+
+makeBranch :: Int -> Mobile a -> Mobile a
+makeBranch len struct = Branch {mlen=len, mstruct=struct}
+
+makeWeight :: a -> Mobile a
+makeWeight weight = Weight {mweight=weight}
+
+leftBranch :: Mobile t -> Mobile t
+leftBranch (Mobile {mleft=left, mright=right}) = left
+rightBranch (Mobile {mleft=left, mright=right}) = right
+branchLength (Branch {mlen=len, mstruct=struct}) = len
+brancStruct (Branch {mlen=len, mstruct=struct}) = struct
+
+
+-- Mobile example for testing:
+m1 = makeMobile (makeBranch 10 (makeWeight 100))
+                      (makeBranch 10 (makeMobile (makeBranch 40 (makeWeight 20))
+                                                 (makeBranch 10 (makeWeight 80))))
