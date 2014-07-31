@@ -230,3 +230,11 @@ squareTree (Node xs) = Node (map squareTree xs)
 treeMap :: (a -> a) -> NestedList a -> NestedList a
 treeMap proc (Leaf x) = Leaf (proc x)
 treeMap proc (Node xs) = Node (map (treeMap proc) xs)
+
+
+-- Exercise 2.32
+-- Subsets Problem (a favorite of mine). Given a list x, return a list of lists of all
+-- subsets of x.
+subsets :: [a] -> [[a]]
+subsets [] = [[]]
+subsets (x:xs) = subsets xs ++ map (\sub -> x:sub) (subsets xs)
